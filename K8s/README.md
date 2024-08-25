@@ -1,5 +1,5 @@
-## Kubernetes Deployment Guide
-# Overview
+# Kubernetes Deployment Guide
+## Overview
 Instructions for deploying an application using Kubernetes with Persistent Volume, Persistent Volume Claim, Deployment, Service, and Ingress.
 
 
@@ -15,8 +15,8 @@ kubectl apply -f service.yaml
 
 kubectl apply -f ingress.yaml
 
-## Verification
-# Check Pods:
+# Verification
+## Check Pods:
 
 kubectl get pods
 Access Application:
