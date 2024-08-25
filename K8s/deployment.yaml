@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+  labels:
+    app: bookmanage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookmanage
+  template:
+    metadata:
+      labels:
+        app: bookmanage
+    spec:
+      initContainers:
+      - name: init-copy
+        image: macarious25siv/books:V5
+        command: ['sh', '-c', 'if [ ! -d /mnt/db ]; then cp -r /app/db/* /mnt/db/; fi']
+        volumeMounts:
+        - name: bookmanage-storage
+          mountPath: /mnt/db
+      containers:
+      - name: bookmanage
+        image: macarious25siv/books:V5
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - mountPath: "/app/db"
+          name: bookmanage-storage
+      volumes:
+      - name: bookmanage-storage
+        persistentVolumeClaim:
+          claimName: my-pv-claim2
