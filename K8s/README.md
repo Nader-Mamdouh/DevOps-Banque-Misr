@@ -23,5 +23,5 @@ minikube service my-service
 ## Check Pods:
 
 kubectl get pods
-Access Application:
+
 
