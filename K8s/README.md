@@ -15,6 +15,10 @@ kubectl apply -f service.yaml
 
 kubectl apply -f ingress.yaml
 
+## If using MiniKube
+
+minikube service my-service
+
 # Verification
 ## Check Pods:
 
