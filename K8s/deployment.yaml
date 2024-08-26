@@ -14,37 +14,21 @@ spec:
       labels:
         app: bookmanage
     spec:
-      # Init container to check and copy database files if the target directory is empty or only contains empty files.
       initContainers:
-      - name: init-copy
+      - name: init-copy-db
         image: macarious25siv/books:V5
-        command: ['sh', '-c', '
-          # Check if the directory is empty or contains only empty files.
-          if [ -z "$(find /mnt/tmp-db -type f ! -empty)" ]; then
-            echo "Directory is empty or only contains empty files. Copying data...";
-            # Copy data from the application directory to the temporary mount location.
-            cp -r /app/db/* /mnt/tmp-db/;
-          else
-            echo "Directory contains non-empty files. Skipping copy.";
-          fi
-        ']
-        # Mount the persistent volume to a temporary directory for safe data copy operations.
+        command: ["sh", "-c", "cp -r /app/db/* /mnt/data/bookmanage/"]
         volumeMounts:
-        - name: bookmanage-storage
-          mountPath: /mnt/tmp-db
-
-      # Main application container that uses the persistent volume for its database files.
+        - mountPath: "/mnt/data/bookmanage"
+          name: bookmanage-storage
       containers:
       - name: bookmanage
         image: macarious25siv/books:V5
         ports:
         - containerPort: 8000
-        # Mount the persistent volume to the application's expected data directory.
         volumeMounts:
         - mountPath: "/app/db"
           name: bookmanage-storage
-
-      # Define the persistent volume claim to be used by both the init container and the main container.
       volumes:
       - name: bookmanage-storage
         persistentVolumeClaim:
