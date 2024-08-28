@@ -5,11 +5,10 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  rules:
-  - host: my-service.local  # This is a custom hostname for local use
-    http:
+  rules: # This is a custom hostname for local use
+  - http:
       paths:
-      - path: /
+      - path: /login
         pathType: Prefix
         backend:
           service:
