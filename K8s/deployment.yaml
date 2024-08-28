@@ -16,14 +16,14 @@ spec:
     spec:
       initContainers:
       - name: init-copy-db
-        image: macarious25siv/books:V5
+        image: macarious25siv/books:V6
         command: ["sh", "-c", "cp -r /app/db/* /mnt/data/bookmanage/"]
         volumeMounts:
         - mountPath: "/mnt/data/bookmanage"
           name: bookmanage-storage
       containers:
       - name: bookmanage
-        image: macarious25siv/books:V5
+        image: macarious25siv/books:V6
         ports:
         - containerPort: 8000
         volumeMounts:
