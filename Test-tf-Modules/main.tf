@@ -1,14 +1,25 @@
 provider "aws" {
-  region = "us-east-1"
+  region = "us-east-2"
 }
 
-# Data source to fetch the latest Ubuntu AMI ID
-data "aws_ami_ids" "ubuntu" {
-  owners = ["099720109477"]
+# Data source to fetch the latest Amazon Linux 2023 AMI ID
+data "aws_ami" "base_ami" {
+  most_recent      = true
+  owners           = ["amazon"]
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/ubuntu-*-*-amd64-server-*"]
+    values = ["al2023-ami-2023.*-x86_64"]
+  }
+
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
   }
 }
 
@@ -27,7 +38,7 @@ module "security_group" {
 }
 
 resource "aws_instance" "web" {
-  ami           = data.aws_ami_ids.ubuntu.ids[0]  # Use the first AMI ID
+  ami           = data.aws_ami.base_ami.id  # Use the correct AMI ID
   instance_type = "t2.micro"
   subnet_id     = module.vpc.public_subnets[0]
   security_groups = [module.security_group.security_group_id]
@@ -36,4 +47,3 @@ resource "aws_instance" "web" {
     Name = "MyWebServer"
   }
 }
-
