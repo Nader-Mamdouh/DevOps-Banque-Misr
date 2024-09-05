@@ -7,7 +7,7 @@ provider "aws" {
 module "vpc" {
   source         = "./VPC_Module"
   cidr_block     = "10.0.0.0/16"
-  vpc_name       = "MyVPC"
+  vpc_name       = "Macarious-VPC"
   public_subnets = ["10.0.1.0/24", "10.0.3.0/24"]
   private_subnets = ["10.0.2.0/24", "10.0.4.0/24"]
   azs            = ["us-east-2a", "us-east-2b"]
@@ -15,7 +15,7 @@ module "vpc" {
 
 module "security_group" {
   source  = "./SecurityGroup_Module"
-  sg_name = "EC2-SG"
+  sg_name = "Macarious-Security-Group"
   vpc_id  = module.vpc.vpc_id
 }
 

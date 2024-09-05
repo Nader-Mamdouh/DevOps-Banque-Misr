@@ -1,6 +1,6 @@
 resource "aws_security_group" "Macarious_SecGroup" {
   name        = var.sg_name
-  description = "Security group for EC2 instance"
+  description = "Security group with inbond SSH, HTTP"
   vpc_id      = var.vpc_id
 
   ingress {
