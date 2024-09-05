@@ -1,3 +1,12 @@
+/*
+This is a general Purpose Security Group
+Take variables: Name, VPC_ID
+Enable or Disable Inbound rules: HTTP, HTTPS, SSH
+Allow for all outbound rules
+*/
+
+
+
 resource "aws_security_group" "Macarious_SecGroup" {
   name        = var.sg_name
   description = "Security group with inbond SSH, HTTP, HTTPS"
@@ -37,3 +46,5 @@ resource "aws_security_group" "Macarious_SecGroup" {
     Name = var.sg_name
   }
 }
+
+
