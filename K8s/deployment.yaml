@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: my-deployment
+  namespace: macarious
   labels:
     app: bookmanage
 spec:
@@ -14,13 +15,6 @@ spec:
       labels:
         app: bookmanage
     spec:
-      initContainers:
-      - name: init-copy-db
-        image: macarious25siv/books:V6
-        command: ["sh", "-c", "cp -r /app/db/* /mnt/data/bookmanage/"]
-        volumeMounts:
-        - mountPath: "/mnt/data/bookmanage"
-          name: bookmanage-storage
       containers:
       - name: bookmanage
         image: macarious25siv/books:V6
