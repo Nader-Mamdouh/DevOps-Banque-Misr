@@ -14,8 +14,8 @@ Before proceeding, ensure that:
 chmod +x K8s_deploy_and_check.sh
 ./K8s_deploy_and_check.sh
 ```
-
-### If using Minikube 
+## Or Manually doing the process
+### If using Minikube start with:
 ```bash
 minikube start && minikube addons enable ingress
 ```
