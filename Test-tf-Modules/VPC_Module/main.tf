@@ -8,7 +8,7 @@ resource "aws_vpc" "Macarious_VPC" {
   }
 }
 
-########                         PUBLIC Creation                  ******************************************
+########                         PUBLIC Creation                  **************
 
 # Create public subnets
 resource "aws_subnet" "public" {
@@ -18,7 +18,7 @@ resource "aws_subnet" "public" {
   availability_zone = var.azs[count.index]
 
   tags = {
-    Name = "Public Subnet ${count.index + 1}"
+    Name = "Macarious Public Subnet ${count.index + 1}"
   }
 }
 
@@ -53,9 +53,8 @@ resource "aws_route_table_association" "public_subnet_association" {
 }
 
 
-########                         PRIVATE Creation                  ******************************************
+########                         PRIVATE Creation                  **************
 
-# Create private subnets
 resource "aws_subnet" "private" {
   count             = length(var.private_subnets)
   vpc_id            = aws_vpc.Macarious_VPC.id
@@ -63,21 +62,22 @@ resource "aws_subnet" "private" {
   availability_zone = var.azs[count.index]
 
   tags = {
-    Name = "Private Subnet ${count.index + 1}"
+    Name = "Macarious Private Subnet ${count.index + 1}"
   }
 }
 
+# Create an Elastic IP for the NAT Gateway
 resource "aws_eip" "nat_eip" {
   domain = "vpc"
   tags = {
-    Name = "NAT-EIP"
+    Name = "Macarious-NAT-EIP"
   }
 }
 
-# Create the NAT Gateway
+# Create the NAT Gateway in a public subnet
 resource "aws_nat_gateway" "nat_gw" {
   allocation_id = aws_eip.nat_eip.id
-  subnet_id     = aws_subnet.public_subnet_1.id
+  subnet_id     = aws_subnet.public[0].id  # Assuming the NAT Gateway is created in the first public subnet
 
   tags = {
     Name = "Macarious_VPC-NAT-Gateway"
