@@ -5,8 +5,12 @@ Instructions for deploying an application using Kubernetes with Persistent Volum
 ## Prerequisites
 Before proceeding, ensure that:
 -   You have a Kubernetes cluster running (e.g., Minikube, EKS, GKE, etc.).
--   kubectl command-line tool is installed and configured to communicate with your cluster.
+-   awscli, ekscli and kubectl command-line tool is installed and configured to communicate with your cluster.
 
+## If using Minikube 
+```bash
+minikube start && minikube addons enable ingress
+```
 
 ```console
 
@@ -26,14 +30,10 @@ kubectl apply -f deployment.yaml
 
 ```
 
-
-## If using Minikube Enable Ingress
-
-minikube addons enable ingress
-
 # Verification
 ## Check Pods:
 
-kubectl get pods
+kubectl get pods -n your-namespace
 
+kubectl get events -n macarious
 
