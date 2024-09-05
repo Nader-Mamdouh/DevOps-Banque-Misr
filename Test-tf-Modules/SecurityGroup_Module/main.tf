@@ -1,4 +1,4 @@
-resource "aws_security_group" "main" {
+resource "aws_security_group" "Macarious_SecGroup" {
   name        = var.sg_name
   description = "Security group for EC2 instance"
   vpc_id      = var.vpc_id
@@ -29,8 +29,4 @@ resource "aws_security_group" "main" {
   tags = {
     Name = var.sg_name
   }
-}
-
-output "security_group_id" {
-  value = aws_security_group.main.id
 }
