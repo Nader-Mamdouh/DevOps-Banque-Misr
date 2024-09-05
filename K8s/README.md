@@ -46,3 +46,16 @@ kubectl get pods -n your-namespace
 
 kubectl get events -n your-namespace
 
+
+
+
+### under Testing
+kubectl get secrets
+kubectl describe secret terminal-creds
+kubectl get secret terminal-creds -o jsonpath='{.data.username}'| base64 --decode
+kubectl get secret terminal-creds -o jsonpath='{.data.password}'| base64 --decode
+kubectl create sa terminal-user
+kubectl create sa terminal-admin
+
+kubectl auth can-i get secret/terminal-creds --as=system:serviceaccount:default:terminal-user
+kubectl auth can-i get secret/terminal-creds --as=system:serviceaccount:default:terminal-admin
