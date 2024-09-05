@@ -7,11 +7,12 @@ Before proceeding, ensure that:
 -   You have a Kubernetes cluster running (e.g., Minikube, EKS, GKE, etc.).
 -   awscli, ekscli and kubectl command-line tool is installed and configured to communicate with your cluster.
 
-## If using Minikube 
+### If using Minikube 
 ```bash
 minikube start && minikube addons enable ingress
 ```
 
+### After Creating or Connecting to the Cluster
 ```console
 
 kubectl apply -f namespace.yaml
