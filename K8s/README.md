@@ -7,6 +7,14 @@ Before proceeding, ensure that:
 -   You have a Kubernetes cluster running (e.g., Minikube, EKS, GKE, etc.).
 -   awscli, ekscli and kubectl command-line tool is installed and configured to communicate with your cluster.
 
+## Automating the process
+-  Make the script executable by running
+-  Execute the script by running:
+```bash
+chmod +x K8s_deploy_and_check.sh
+./K8s_deploy_and_check.sh
+```
+
 ### If using Minikube 
 ```bash
 minikube start && minikube addons enable ingress
@@ -36,5 +44,5 @@ kubectl apply -f deployment.yaml
 
 kubectl get pods -n your-namespace
 
-kubectl get events -n macarious
+kubectl get events -n your-namespace
 
