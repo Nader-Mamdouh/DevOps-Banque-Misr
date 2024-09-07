@@ -1,23 +1,26 @@
-#!/bin/bash
+@echo off
 
-if [ -d "env" ] 
-then
-    echo "Python virtual environment exists." 
-else
-    python3 -m venv env
-fi
+REM Check if Python virtual environment exists
+if exist env (
+    echo Python virtual environment exists.
+) else (
+    python -m venv env
+)
 
-source env/bin/activate
+REM Activate the virtual environment
+call env\Scripts\activate.bat
 
+REM Install dependencies from requirements.txt
+pip install -r requirements.txt
 
-pip3 install -r requirements.txt
-
-if [ -d "logs" ] 
-then
-    echo "Log folder exists." 
-else
+REM Check if logs directory exists
+if exist logs (
+    echo Log folder exists.
+) else (
     mkdir logs
-    touch logs/error.log logs/access.log
-fi
+    type nul > logs\error.log
+    type nul > logs\access.log
+)
 
-sudo chmod -R 777 logs
+REM Change permissions (Windows doesn't need chmod; adjust if necessary)
+REM In Windows, permissions are different from Linux. You don't need to use 'chmod'.
