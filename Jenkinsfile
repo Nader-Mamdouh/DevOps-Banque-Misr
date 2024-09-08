@@ -24,7 +24,7 @@ pipeline {
                         """
                     } else {
                         bat """
-                        python -m venv ${VIRTUAL_ENV}
+                        python3 -m venv ${VIRTUAL_ENV}
                         venv\\Scripts\\activate
                         pip install -r ${PIP_REQUIREMENTS}
                         """
