@@ -1,29 +1,16 @@
-pipeline{
+pipeline {
     agent any
     stages {
-    
-        stage('Setup Python Virtual ENV for dependencies'){
-       
-      steps  {
-            sh '''
-            chmod +x envsetup.sh
-            ./envsetup.sh
-            '''}
-        }
-        stage('Setup Gunicorn Setup'){
+        stage('Setup Python Virtual ENV for dependencies') {
             steps {
-                sh '''
-                chmod +x gunicorn.sh
-                ./gunicorn.sh
-                '''
+                sh 'python -m venv venv'
+                sh 'venv\\Scripts\\activate'
+                sh 'pip install -r requirements.txt'
             }
         }
-        stage('setup NGINX'){
+        stage('Run Django Server') {
             steps {
-                sh '''
-                chmod +x nginx.sh
-                ./nginx.sh
-                '''
+                bat 'start /B python manage.py runserver'
             }
         }
     }
