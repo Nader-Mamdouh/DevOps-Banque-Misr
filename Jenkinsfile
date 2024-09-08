@@ -1,24 +1,28 @@
-pipeline {
+pipeline{
     agent any
     stages {
-        stage('Setup Python Virtual ENV for dependencies') {
+    
+        stage('Setup Python Virtual ENV for dependencies'){
+       
+      steps  {
+            sh '''
+            chmod +x envsetup.sh
+            ./envsetup.sh
+            '''}
+        }
+        stage('Setup Gunicorn Setup'){
             steps {
-                bat '''
-                call envsetup.bat
+                sh '''
+                chmod +x gunicorn.sh
+                ./gunicorn.sh
                 '''
             }
         }
-        stage('Setup Gunicorn') {
+        stage('setup NGINX'){
             steps {
-                bat '''
-                call gunicorn.bat
-                '''
-            }
-        }
-        stage('Setup NGINX') {
-            steps {
-                bat '''
-                call nginx.bat
+                sh '''
+                chmod +x nginx.sh
+                ./nginx.sh
                 '''
             }
         }
