@@ -1,9 +1,5 @@
 pipeline {
     agent any
-    tools {
-        // Make sure Jenkins has Python installed and configured
-        python 'Python 3.8'  // or any Python version installed on your system
-    }
     environment {
         VIRTUAL_ENV = 'venv'
         PIP_REQUIREMENTS = 'requirements.txt'
