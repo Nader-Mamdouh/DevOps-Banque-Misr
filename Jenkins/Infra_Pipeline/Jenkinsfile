@@ -9,7 +9,7 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repository') {
+        stage('Checkout: Clone Repository') {
             steps {
                 script {
                     // Clone the repository using the GITHUB_TOKEN
