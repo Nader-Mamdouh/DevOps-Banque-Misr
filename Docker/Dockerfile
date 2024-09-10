@@ -9,7 +9,7 @@ ENV PYTHONUNBUFFERED=1
 RUN apk add --no-cache build-base
 
 # Set work directory
-WORKDIR /app
+WORKDIR /app 
 
 # Copy requirements file and install dependencies
 COPY requirements.txt .
