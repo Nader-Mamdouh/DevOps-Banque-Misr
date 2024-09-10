@@ -97,21 +97,33 @@ pipeline {
                 }
             }
         }
-        stage('Docker Image Build ') {
+        stage('Docker Image Build') {
             steps {
                 script {
-                    sh '''
-                    ls -alt
-                    cd Docker
-                    ls -alt
-                    '''
+                    // List files in the current workspace for debugging
+                    sh 'echo "Listing current directory contents..." && ls -alt'
 
-                    // Build the Docker image
-                    echo "Building Docker image..."
-                    sh 'docker build -t macarious25siv/books:V4 .'
+                    // Change to the Docker directory using dir block
+                    dir('Docker') {
+                        // List files in the Docker directory
+                        sh 'echo "Listing Docker directory contents..." && ls -alt'
+
+                        // Build the Docker image
+                        echo "Building Docker image..."
+                        sh 'docker build -t macarious25siv/books:V4 .'
+
+                        // Check the result of the build and handle errors
+                        def result = sh(script: 'docker images | grep macarious25siv/books', returnStatus: true)
+                        if (result == 0) {
+                            echo "Docker image built successfully."
+                        } else {
+                            error("Docker image build failed.")
+                        }
+                    }
                 }
             }
         }
+
 
         stage('Docker Image Scanning Stage: Snyk') {
             steps {
