@@ -105,8 +105,9 @@ pipeline {
                     sh '''
                     ls -alt
                     cd Docker
-                    ls-alt
+                    ls -alt
                     '''
+
                     // Build the Docker image
                     echo "Building Docker image..."
                     sh 'docker build -t macarious25siv/books:V4 .'
