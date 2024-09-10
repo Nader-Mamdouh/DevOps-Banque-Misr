@@ -1,0 +1,94 @@
+pipeline {
+    agent any
+
+    environment {
+        // GitHub token for cloning the private repo
+        GITHUB_TOKEN = credentials('GitHub_Private_Repo')
+        // AWS region for the Terraform operations
+        AWS_REGION = 'us-east-2'
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                script {
+                    // Clone the repository using the GITHUB_TOKEN
+                    sh '''
+                    git clone https://${GITHUB_TOKEN}@github.com/Macarious-Gk/Terraform.git
+                    cd Terraform
+                    '''
+                }
+            }
+        }
+
+        stage('List Files') {
+            steps {
+                script {
+                    // List files to verify the presence of Terraform configuration files
+                    sh '''
+                    ls -al
+                    '''
+                }
+            }
+        }
+
+        stage('Initialize Terraform') {
+            steps {
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-jenkins-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh '''
+                    cd Terraform
+                    terraform init
+                    '''
+                }
+            }
+        }
+
+        stage('Terraform Validate') {
+            steps {
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-jenkins-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh '''
+                    cd Terraform
+                    terraform validate
+                    '''
+                }
+            }
+        }
+
+        stage('Terraform Plan') {
+            steps {
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-jenkins-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh '''
+                    cd Terraform
+                    terraform plan
+                    '''
+                }
+            }
+        }
+
+        stage('Terraform Apply') {
+            steps {
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-jenkins-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh '''
+                    cd Terraform
+                    terraform apply -auto-approve
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            // Clean up workspace after the build
+            cleanWs()
+        }
+
+        success {
+            echo 'Terraform infrastructure setup completed successfully!'
+        }
+
+        failure {
+            echo 'Terraform infrastructure setup failed.'
+        }
+    }
+}
