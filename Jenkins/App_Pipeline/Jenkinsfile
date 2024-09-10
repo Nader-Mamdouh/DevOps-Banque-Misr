@@ -72,7 +72,6 @@ pipeline {
                  dir('DevOps/App/'){
 
                 sh '''
-                cd Dev
                 python3 manage.py test --noinput --failfast --verbosity=2
                 '''
                  }
