@@ -5,6 +5,7 @@ pipeline {
         DOCKER_CREDS = credentials('Docker_Creds')
         SNYK_TOKEN = credentials('Snyk_Token_ID')  // Use the credential ID here
         GIT_CRED = credentials('GitHub_Private_Repo')  // Use the GitHub credentials ID here
+        
     }
 
     stages {
