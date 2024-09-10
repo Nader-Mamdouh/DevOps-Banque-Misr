@@ -70,7 +70,7 @@ pipeline {
         stage('Unit Testing') {
             steps {
                 sh '''
-                python3 /Book/manage.py test --noinput --failfast --verbosity=2
+                python3 /App/manage.py test --noinput --failfast --verbosity=2
                 '''
                 junit '**/test_results.xml'
             }
