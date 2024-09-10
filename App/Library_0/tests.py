@@ -19,8 +19,8 @@ class UserAuthenticationTestCase(TestCase):
         
     def test_login_with_incorrect_credentials(self):
         # Attempt to log in with incorrect credentials
-        # login = self.client.login(username=self.username, password=self.password2)
-        login = self.client.login(username=self.username, password='4545456465')
+        login = self.client.login(username=self.username, password=self.password2)
+        # login = self.client.login(username=self.username, password='4545456465')
 
         self.assertFalse(login, "Login should fail with incorrect password.")
         
