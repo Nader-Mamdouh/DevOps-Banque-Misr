@@ -71,11 +71,9 @@ pipeline {
                 echo "start Utest"
                 pwd 
                 ls -alt
-                cd DevOps
-                ls -alt
                 cd App
                 ls -alt
-                
+                python3 manage.py test
                 '''
                 //  dir('DevOps/App/'){
 
