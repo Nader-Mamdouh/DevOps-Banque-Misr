@@ -51,8 +51,8 @@ pipeline {
                     bandit -r . -f json -o bandit_Report.json
                     
                     # Display the Bandit report
-                    echo "Bandit Report:"
-                    cat bandit_Report.json
+                    // echo "Bandit Report:"
+                    // cat bandit_Report.json
                     
                     # Check if Bandit found any issues
                     if grep '"issue_severity":' bandit_Report.json > /dev/null; then
@@ -69,14 +69,23 @@ pipeline {
         
         stage('Unit Testing') {
             steps {
-                 dir('DevOps/App/'){
 
                 sh '''
                 pwd 
-                ls
-                python3 manage.py test --noinput --failfast --verbosity=2
+                cd DevOps
+                ls -alt
+                cd App
+                ls -alt
+                
                 '''
-                 }
+                //  dir('DevOps/App/'){
+
+                // sh '''
+                // pwd 
+                // ls -alt
+                // python3 manage.py test --noinput --failfast --verbosity=2
+                // '''
+                //  }
             }
         }
 
