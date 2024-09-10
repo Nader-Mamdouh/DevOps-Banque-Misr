@@ -11,13 +11,10 @@ pipeline {
     stages {
         stage('Checkout: Clone Repository') {
             steps {
-                script {
-                    // Clone the repository using the GITHUB_TOKEN
-                    sh '''
-                    git clone https://${GITHUB_TOKEN}@github.com/Macarious-Gk/Terraform.git
-                    cd Terraform
-                    '''
-                }
+                // Clone the private GitHub repository using stored credentials
+                git branch: 'main',
+                    url: 'https://github.com/Macarious-GK/DevOps.git',
+                    credentialsId: 'GitHub_Private_Repo'
             }
         }
 
