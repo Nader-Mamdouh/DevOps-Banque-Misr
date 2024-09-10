@@ -170,26 +170,8 @@ pipeline {
                 dir('K8s'){
                     withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-jenkins-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh '''
-                    echo "Applying namespace.yaml..."
-                    kubectl apply -f namespace.yaml
-
-                    echo "Applying pv.yaml..."
-                    kubectl apply -f pv.yaml
-
-                    echo "Applying pvc.yaml..."
-                    kubectl apply -f pvc.yaml
-
-                    echo "Applying job.yaml..."
-                    kubectl apply -f job.yaml
-
-                    echo "Applying service.yaml..."
-                    kubectl apply -f service.yaml
-
-                    echo "Applying ingress.yaml..."
-                    kubectl apply -f ingress.yaml
-
-                    echo "Applying deployment.yaml..."
-                    kubectl apply -f deployment.yaml
+                    aws eks update-kubeconfig --name Macarious-eks-cluster --region us-east-2
+                    kubectl get svc
 
                     '''
                 }
