@@ -100,13 +100,8 @@ pipeline {
         stage('Docker Image Build') {
             steps {
                 script {
-                    // List files in the current workspace for debugging
-                    sh 'echo "Listing current directory contents..." && ls -alt'
 
-                    // Change to the Docker directory using dir block
                     dir('Docker') {
-                        // List files in the Docker directory
-                        sh 'echo "Listing Docker directory contents..." && ls -alt'
 
                         // Build the Docker image
                         echo "Building Docker image..."
