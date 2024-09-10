@@ -102,7 +102,11 @@ pipeline {
         stage('Docker Image Build ') {
             steps {
                 script {
-                    sh 'cd Docker'
+                    sh '''
+                    ls -alt
+                    cd Docker
+                    ls-alt
+                    '''
                     // Build the Docker image
                     echo "Building Docker image..."
                     sh 'docker build -t macarious25siv/books:V4 .'
