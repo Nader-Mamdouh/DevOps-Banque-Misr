@@ -8,7 +8,7 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repository') {
+        stage('Checkout: Clone Repository') {
             steps {
                 // Clone the private GitHub repository using stored credentials
                 git branch: 'main',
@@ -17,7 +17,7 @@ pipeline {
             }
         }
 
-        stage('Linter_Stage') {
+        stage('Linter_Stage: Flake8 --> Syntax errors') {
             steps {
                 
                 // Run Flake8, save the output to a report, and check for fatal errors (e.g., syntax errors)
@@ -43,7 +43,7 @@ pipeline {
             }
         }
 
-        stage('SAST Stage: Bandit for Static Security Checks') {
+        stage('SAST Stage: Bandit --> Static Security Checks') {
             steps {
                 script {
                     sh '''
@@ -64,21 +64,46 @@ pipeline {
         }
 
         
-        stage('Unit Testing') {
-            steps {
+        // stage('Unit Testing') {
+        //     steps {
+        //         sh '''
+        //         echo "start Utest"
+        //         cd App
+        //         python3 -m venv venv
+        //         source venv/bin/activate
+        //         pip install -r requirements.txt
+        //         python3 manage.py test
+        //         '''
+        //     }
+        // }
 
-                sh '''
-                echo "start Utest"
-                cd App
-                python3 -m venv venv
-                source venv/bin/activate
-                pip install -r requirements.txt
-                python3 manage.py test
-                '''
+        stage('App Feature Testing: UnitTesting ') {
+            steps {
+                script {
+                    sh '''
+                    echo "Starting unit tests..."
+                    cd App
+                    python3 -m venv venv
+                    source venv/bin/activate
+                    pip install -r requirements.txt
+
+                    # Run tests and capture the result
+                    python3 manage.py test
+                    result=$?
+
+                    if [ $result -eq 0 ]; then
+                        echo "Unit tests passed successfully."
+                    else
+                        echo "Unit tests failed. Please check the test results."
+                        exit 1
+                    fi
+                    '''
+                }
             }
         }
 
-        stage('Build Docker Image') {
+
+        stage('Docker Image Build ') {
             steps {
                 script {
                     // Build the Docker image
@@ -88,7 +113,7 @@ pipeline {
             }
         }
 
-        stage('Test Docker Image with Snyk') {
+        stage('Docker Image Scanning Stage: Snyk') {
             steps {
                 script {
                     sh '''
@@ -110,7 +135,7 @@ pipeline {
             }
         }
 
-        stage('Login to Docker Hub') {
+        stage('Docker Hub Login to ') {
             steps {
                 script {
                     // Login to Docker Hub using stored credentials
@@ -120,7 +145,7 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image') {
+        stage('Docker Image Push ') {
             steps {
                 script {
                     // Push the image to Docker Hub
