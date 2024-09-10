@@ -84,7 +84,7 @@ pipeline {
                     echo "Starting unit tests..."
                     cd App
                     python3 -m venv venv
-                    source venv/bin/activate
+                    bash "source venv/bin/activate"
                     pip install -r requirements.txt
 
                     # Run tests and capture the result
@@ -97,6 +97,7 @@ pipeline {
                         echo "Unit tests failed. Please check the test results."
                         exit 1
                     fi
+                    
                     '''
                 }
             }
