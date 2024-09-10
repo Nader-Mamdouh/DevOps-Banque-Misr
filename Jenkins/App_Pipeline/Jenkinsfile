@@ -123,6 +123,8 @@ pipeline {
         stage('Docker Image Scanning Stage: Snyk') {
             steps {
                 script {
+                    dir('Docker') {
+
                     sh '''
                     echo "Running Snyk Container Test..."
                     snyk auth $SNYK_TOKEN
@@ -139,6 +141,7 @@ pipeline {
                     fi
                     '''
                 }
+            }
             }
         }
 
