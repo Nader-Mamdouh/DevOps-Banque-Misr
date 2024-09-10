@@ -84,11 +84,9 @@ pipeline {
                     echo "Starting unit tests..."
                     cd App
                     python3 -m venv venv
-                    bash "source venv/bin/activate"
-                    pip install -r requirements.txt
 
-                    # Run tests and capture the result
-                    python3 manage.py test
+                    # Activate virtual environment using bash
+                    bash -c "source venv/bin/activate && pip install -r requirements.txt && python3 manage.py test"
                     result=$?
 
                     if [ $result -eq 0 ]; then
@@ -97,8 +95,8 @@ pipeline {
                         echo "Unit tests failed. Please check the test results."
                         exit 1
                     fi
-                    
-                    '''
+                '''
+
                 }
             }
         }
