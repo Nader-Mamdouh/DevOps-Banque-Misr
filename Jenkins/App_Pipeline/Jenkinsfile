@@ -69,20 +69,12 @@ pipeline {
 
                 sh '''
                 echo "start Utest"
-                pwd 
-                ls -alt
                 cd App
-                ls -alt
+                python3 -m venv venv
+                source venv/bin/activate
+                pip install -r requirements.txt
                 python3 manage.py test
                 '''
-                //  dir('DevOps/App/'){
-
-                // sh '''
-                // pwd 
-                // ls -alt
-                // python3 manage.py test --noinput --failfast --verbosity=2
-                // '''
-                //  }
             }
         }
 
