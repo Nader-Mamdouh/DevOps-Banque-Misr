@@ -61,9 +61,7 @@ pipeline {
                     '''
                 }
             }
-        }
-
-        
+        }  
         // stage('Unit Testing') {
         //     steps {
         //         sh '''
@@ -76,7 +74,6 @@ pipeline {
         //         '''
         //     }
         // }
-
         stage('App Feature Testing: UnitTesting ') {
             steps {
                 script {
@@ -95,12 +92,12 @@ pipeline {
                         echo "Unit tests failed. Please check the test results."
                         exit 1
                     fi
+                    cd ..
                 '''
 
                 }
             }
         }
-
 
         stage('Docker Image Build ') {
             steps {
