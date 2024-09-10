@@ -12,32 +12,70 @@ pipeline {
             steps {
                 // Clone the private GitHub repository using stored credentials
                 git branch: 'main',
-                    url: 'https://github.com/Macarious-GK/Book.git',
+                    url: 'https://github.com/Macarious-GK/DevOps.git',
                     credentialsId: 'GitHub_Private_Repo'
             }
         }
 
-        stage('Test Code Linter with Bandit') {
+        stage('Linter_Stage') {
+            steps {
+                
+                // Run Flake8, save the output to a report, and check for fatal errors (e.g., syntax errors)
+                script {
+                    // Run Flake8 and save report
+                    sh 'flake8 --count --statistics --select=E999 --exit-zero > flake8_report.txt || true'
+    
+                    // Read the report
+                    def report = readFile('flake8_report.txt')
+                    echo "Flake8 Report:\n${report}"
+                    
+                    // Check if the report contains syntax errors (E999)
+                    if (report.contains('E999')) {
+                        error("Flake8 report contains syntax errors (E999)! Linting Stage Failing the pipeline.")
+                    }else {
+                    // If no syntax errors, display a message
+                        echo "No syntax errors found in the Flake8 report."
+                        echo "Linting Stage Passed SUCCESSFULLY"
+                    }
+                        
+                    
+                }
+            }
+        }
+
+        stage('SAST Stage: Bandit for Static Security Checks') {
             steps {
                 script {
                     sh '''
                     echo "Running Bandit for security checks..."
-                    bandit -r . -f json -o bandit_output.json
+                    bandit -r . -f json -o bandit_Report.json
+                    
+                    # Display the Bandit report
+                    echo "Bandit Report:"
+                    cat bandit_Report.json
                     
                     # Check if Bandit found any issues
-                    if grep '"issue_severity":' bandit_output.json; then
-                        echo "Bandit found security issues:"
-                        cat bandit_output.json
-                        echo "Failing the pipeline due to Bandit issues"
+                    if grep '"issue_severity":' bandit_Report.json > /dev/null; then
+                        echo "Failed from SAST stage: Security issues detected by Bandit."
                         exit 1
                     else
-                        echo "No issues found by Bandit"
+                        echo "SAST stage passed successfully: No issues found by Bandit."
                     fi
                     '''
                 }
             }
         }
+
         
+        stage('Unit Testing') {
+            steps {
+                sh '''
+                python3 /Book/manage.py test --noinput --failfast --verbosity=2
+                '''
+                junit '**/test_results.xml'
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 script {
