@@ -70,6 +70,7 @@ pipeline {
                 sh '''
                 echo "start Utest"
                 pwd 
+                ls -alt
                 cd DevOps
                 ls -alt
                 cd App
