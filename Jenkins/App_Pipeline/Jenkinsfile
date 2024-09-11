@@ -85,7 +85,9 @@ pipeline {
             steps{
                 // Check if Cluster is Exist or not by Name
                 script{
-                    checkEksCluster('aws-jenkins-credentials', 'Macarious-eks-cluster','us-east-2')
+                    dir('K8s'){
+                        checkEksCluster('aws-jenkins-credentials', 'Macarious-eks-cluster','us-east-2')
+                    }
                 }
             }
         }
