@@ -9,7 +9,7 @@ To build the Docker image using either of the Dockerfiles, run the following com
 ```bash
 docker build -t my-python-app -f Dockerfile .
 ```
-### Using Dockerfile_copy(multi-stage)
+### Using 'Dockerfile_copy(multi-stage)'
 ```bash
 docker build -t my-python-app -f Dockerfile_copy .
 ```
