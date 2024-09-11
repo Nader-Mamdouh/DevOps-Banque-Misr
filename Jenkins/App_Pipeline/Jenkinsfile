@@ -51,32 +51,20 @@ pipeline {
         }
         stage('Docker Image Build') {
             steps {
+                // Build Docker Image Stage
                 script {
-
                     dir('Docker') {
-
-                        // Build the Docker image
-                        echo "Building Docker image..."
-                        sh 'docker build -t macarious25siv/books:V4 .'
-
-                        // Check the result of the build and handle errors
-                        def result = sh(script: 'docker images | grep macarious25siv/books', returnStatus: true)
-                        if (result == 0) {
-                            echo "Docker image built successfully."
-                        } else {
-                            error("Docker image build failed.")
-                        }
+                        buildDockerImage('macarious25siv/books:V4')
                     }
                 }
             }
         }
 
-
         stage('Docker Image Scanning Stage: Snyk') {
             steps {
                 script {
+                    // Snyk Ligon &&  Test the Docker image with Snyk
                     dir('Docker') {
-                        // Snyk Ligon &&  Test the Docker image with Snyk
                         snykLogin('Snyk_Token_ID')
                         snykTestDockerImage('macarious25siv/books:V4')
                     }       
@@ -100,28 +88,7 @@ pipeline {
                     withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-jenkins-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh '''
                     aws eks update-kubeconfig --name Macarious-eks-cluster --region us-east-2
-                    kubectl get svc
-                    echo "Applying namespace.yaml..."
-                    kubectl apply -f namespace.yaml
-
-                    echo "Applying pv.yaml..."
-                    kubectl apply -f pv.yaml
-
-                    echo "Applying pvc.yaml..."
-                    kubectl apply -f pvc.yaml
-
-                    echo "Applying job.yaml..."
-                    kubectl apply -f job.yaml
-
-                    echo "Applying service.yaml..."
-                    kubectl apply -f service.yaml
-
-                    echo "Applying ingress.yaml..."
-                    kubectl apply -f ingress.yaml
-
-                    echo "Applying deployment.yaml..."
-                    kubectl apply -f deployment.yaml
-
+                    
                     '''
                 }
 
