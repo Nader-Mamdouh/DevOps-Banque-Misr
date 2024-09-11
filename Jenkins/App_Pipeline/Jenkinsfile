@@ -4,7 +4,6 @@ pipeline {
 
     environment {
         GIT_CRED = credentials('GitHub_Private_Repo')  // Use the GitHub credentials ID here
-        
     }
 
     stages {
@@ -84,20 +83,13 @@ pipeline {
 
         stage('Deploy on EKS'){
             steps{
-                dir('K8s'){
-                    withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-jenkins-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    sh '''
-                    aws eks update-kubeconfig --name Macarious-eks-cluster --region us-east-2
-                    
-                    '''
+                script{
+                    checkEksCluster('aws-jenkins-credentials', 'Macarious-eks-cluster')
                 }
-
-                }
-                
-
             }
         }
     }
+    
     
     post {
         always {
