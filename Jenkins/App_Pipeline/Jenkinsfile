@@ -81,10 +81,22 @@ pipeline {
             }
         }
 
-        stage('Deploy on EKS'){
+        stage('Check EKS Cluster'){
             steps{
+                // Check if Cluster is Exist or not by Name
                 script{
-                    checkEksCluster('aws-jenkins-credentials', 'Macarious-eks-cluster')
+                    checkEksCluster('aws-jenkins-credentials', 'Macarious-eks-cluster','us-east-2')
+                }
+            }
+        }
+
+        stage('Deployment '){
+            steps{
+                // Deploy your Application using K8s Files
+                script{
+                    dir('K8s'){
+                        deploymentStage()
+                    }
                 }
             }
         }
