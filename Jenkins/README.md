@@ -6,9 +6,9 @@ This repository contains Jenkins pipelines for different parts of the applicatio
 
 The Jenkins folder consists of the following pipelines:
 
-1. **app_pipeline_creation**: Pipeline responsible for building, testing, and deploying the application.
-2. **Remove_Deployment**: Pipeline responsible for tearing down or removing the deployment from the environment.
-3. **Infra_structure Pipeline**: It is responsible for both **applying** and **destroying** infrastructure resources by using **Build with Parameters** action: (apply or destroy)
+1. **App_Pipeline**: Pipeline responsible for building, testing, and deploying the application.
+2. **RRemove_Deployment**: Pipeline responsible for tearing down or removing the deployment from the environment.
+3. **Infra_Pipeline**: It is responsible for both **applying** and **destroying** infrastructure resources by using **Build with Parameters** action: (apply or destroy)
 
 ## Jenkins Shared Library
 
@@ -28,6 +28,18 @@ To use the shared library in your Jenkins pipeline, add the following configurat
 ## Security Authorization
 - **Mixed Security Authorization**: Segment access permissions based on roles and responsibilities.
 - **Least Privilege Principle**: Ensure users and services have only the permissions needed for their tasks.
+
+## Plugin Installation
+
+### Required Plugins
+1. **AWS Credentials Plugin**: For managing AWS credentials in Jenkins.
+2. **GitHub Plugin**: For integrating Jenkins with GitHub repositories.
+
+#### Install Plugins
+1. Go to **Manage Jenkins** -> **Manage Plugins**.
+2. Under the **Available** tab, search for **AWS Credentials** and **GitHub**.
+3. Select the plugins and click **Install without Restart**.
+
 
 ## How to Run the Pipelines
 1. Configure Jenkins Shared Library under **Manage Jenkins** -> **Configure System** -> **Global Pipeline Libraries**.
