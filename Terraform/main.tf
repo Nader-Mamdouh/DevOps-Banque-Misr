@@ -33,25 +33,25 @@ module "security_group" {
   vpc_id  = module.vpc.vpc_id
 }
 
-# module "eks" {
-#   source = "./EKS_Module"
-#   vpc_id              = module.vpc.vpc_id
-#   sg_id               = module.security_group.security_group_id
-#   cluster_name        = "Macarious-eks-cluster"
-#   private_subnet_ids  = module.vpc.private_subnets[*]
-#   kubernetes_version  = "1.30" 
-# }
+module "eks" {
+  source = "./EKS_Module"
+  vpc_id              = module.vpc.vpc_id
+  sg_id               = module.security_group.security_group_id
+  cluster_name        = "Macarious-eks-cluster"
+  private_subnet_ids  = module.vpc.private_subnets[*]
+  kubernetes_version  = "1.30" 
+}
 
-# module "nodegroup" {
-#   source = "./NodeGroup_Module"
-#   cluster_name        = module.eks.cluster_name
-#   node_group_name     = "Macarious-eks-node-group"
-#   private_subnet_ids  = module.vpc.private_subnets[*]
-#   instance_types      = ["t3.medium"]
-#   desired_size        = 1
-#   max_size            = 1
-#   min_size            = 1
-# }
+module "nodegroup" {
+  source = "./NodeGroup_Module"
+  cluster_name        = module.eks.cluster_name
+  node_group_name     = "Macarious-eks-node-group"
+  private_subnet_ids  = module.vpc.private_subnets[*]
+  instance_types      = ["t3.medium"]
+  desired_size        = 1
+  max_size            = 1
+  min_size            = 1
+}
 
 
 module "ec2_instance" {
