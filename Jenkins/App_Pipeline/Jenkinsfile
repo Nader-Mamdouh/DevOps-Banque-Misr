@@ -21,54 +21,31 @@ pipeline {
             steps {
                 // Run Flake8, save the output to a report, and check for fatal errors (e.g., syntax errors)
                 script {
-                        // Linting stage using Flake8
-                        dir('App'){
-                            runFlake8Linting()   
-                        }                 
+                    dir('App'){
+                        runFlake8Linting()   
+                    }                 
                 }
             }
         }
 
         stage('SAST Stage: Bandit --> Static Security Checks') {
             steps {
+                // Run Bandit as SAST Stage to check vulnerabilities Staticly
                 script {
-                    sh '''
-                    echo "Running Bandit for security checks..."
-                    bandit -r . -f json -o bandit_Report.json
-                    
-                    
-                    # Check if Bandit found any issues
-                    if grep '"issue_severity":' bandit_Report.json > /dev/null; then
-                        echo "Failed from SAST stage: Security issues detected by Bandit."
-                        exit 1
-                    else
-                        echo "SAST stage passed successfully: No issues found by Bandit."
-                    fi
-                    '''
+                    dir('App'){
+                    sastBanditCheck()
+                    }
                 }
             }
         }  
 
         stage('App Feature Testing: UnitTesting') {
             steps {
-                dir('App') {
-                    script {
-                        sh '''
-                        echo "Starting unit tests..."
-                        python3 -m venv venv
-
-                        # Activate virtual environment using bash
-                        bash -c "source venv/bin/activate && pip install -r requirements.txt && python3 manage.py test && deactivate"
-                        result=$?
-
-                        if [ $result -eq 0 ]; then
-                            echo "Unit tests passed successfully."
-                        else
-                            echo "Unit tests failed. Please check the test results."
-                            exit 1
-                        fi
-                        '''
-                    }
+                // Unit Testing For Django APP
+                script {
+                    dir('App') {
+                        unitTestDjango()
+                    }   
                 }
             }
         }
