@@ -4,12 +4,12 @@
 
 To build the Docker image using either of the Dockerfiles, run the following commands:
 
-### Using `Dockerfile.txt`
+### Using `Dockerfile`
 
 ```bash
 docker build -t my-python-app -f Dockerfile .
 ```
-### Using Dockerfile_copy.txt (multi-stage)
+### Using `Dockerfile_copy(multi-stage)`
 ```bash
 docker build -t my-python-app -f Dockerfile_copy .
 ```
