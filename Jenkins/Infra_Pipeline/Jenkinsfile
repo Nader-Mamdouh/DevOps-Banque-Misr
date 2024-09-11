@@ -18,17 +18,6 @@ pipeline {
             }
         }
 
-        stage('List Files') {
-            steps {
-                script {
-                    // List files to verify the presence of Terraform configuration files
-                    sh '''
-                    ls -al
-                    '''
-                }
-            }
-        }
-
         stage('Initialize Terraform') {
             steps {
                 dir('Test-tf-Modules'){
