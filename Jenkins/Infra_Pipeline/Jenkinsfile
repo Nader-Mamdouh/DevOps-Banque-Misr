@@ -60,7 +60,7 @@ pipeline {
                 dir('Terraform'){
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-jenkins-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh '''
-                    terraform apply -auto-approve
+                    terraform ${action} -auto-approve
                     '''
                 }
                 }
