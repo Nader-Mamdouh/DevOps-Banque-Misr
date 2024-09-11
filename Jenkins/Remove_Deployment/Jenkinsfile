@@ -1,0 +1,24 @@
+@Library('Jenkins-Shared-Library') _
+
+pipeline {
+    agent any
+
+    stages {
+        stage('remove EKS Cluster deployment'){
+            steps{
+                dir('K8s'){
+                    script{
+                        removeDeploymentStage('aws-jenkins-credentials', 'Macarious-eks-cluster','us-east-2')
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            // Clean up the workspace and logout from Docker Hub
+            echo "Cleaning up the workspace and logging out from Docker Hub..."
+            cleanWs()
+        }
+    }
+}
