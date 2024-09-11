@@ -20,7 +20,7 @@ pipeline {
 
         stage('Initialize Terraform') {
             steps {
-                dir('Test-tf-Modules'){
+                dir('Terraform'){
 
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-jenkins-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh '''
@@ -33,7 +33,7 @@ pipeline {
 
         stage('Terraform Validate') {
             steps {
-                dir('Test-tf-Modules'){
+                dir('Terraform'){
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-jenkins-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh '''
                     terraform validate
@@ -45,7 +45,7 @@ pipeline {
 
         stage('Terraform Plan') {
             steps {
-                dir('Test-tf-Modules'){
+                dir('Terraform'){
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-jenkins-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh '''
                     terraform plan
@@ -57,7 +57,7 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
-                dir('Test-tf-Modules'){
+                dir('Terraform'){
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-jenkins-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh '''
                     terraform apply -auto-approve
