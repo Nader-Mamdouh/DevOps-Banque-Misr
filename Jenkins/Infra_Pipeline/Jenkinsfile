@@ -2,22 +2,11 @@ pipeline {
     agent any
 
     environment {
-        // GitHub token for cloning the private repo
-        GITHUB_TOKEN = credentials('GitHub_Private_Repo')
         // AWS region for the Terraform operations
         AWS_REGION = 'us-east-2'
     }
 
     stages {
-        stage('Checkout: Clone Repository') {
-            steps {
-                // Clone the private GitHub repository using stored credentials
-                git branch: 'main',
-                    url: 'https://github.com/Macarious-GK/DevOps.git',
-                    credentialsId: 'GitHub_Private_Repo'
-            }
-        }
-
         stage('Initialize Terraform') {
             steps {
                 dir('Terraform'){
