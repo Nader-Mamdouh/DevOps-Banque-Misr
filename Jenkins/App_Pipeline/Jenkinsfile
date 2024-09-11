@@ -72,7 +72,7 @@ pipeline {
             }
         }
 
-        stage('Check EKS Cluster'){
+        stage('Deployment Stage'){
             steps{
                 // Check if Cluster is Exist or not by Name
                 script{
@@ -84,7 +84,6 @@ pipeline {
         }
 
     }
-    
     
     post {
         always {
