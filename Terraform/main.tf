@@ -57,7 +57,7 @@ module "nodegroup" {
 module "ec2_instance" {
   source           = "./EC2_Module"
   ami_id           = data.aws_ami.ubuntu.id  # Replace with actual AMI ID
-  instance_type    = "t3.medium"
+  instance_type    = "t2.micro"
   subnet_id        = module.vpc.public_subnets[0]  # Deploying in the first public subnet
   security_group_id = module.security_group.security_group_id
   key_name         = "macarious"  # Replace with your actual key pair name
