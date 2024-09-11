@@ -16,7 +16,7 @@ pipeline {
             }
         }
 
-        stage('Linter_Stage: Flake8 --> Syntax errors') {
+        stage('Linter Stage') {
             steps {
                 // Run Flake8, save the output to a report, and check for fatal errors (e.g., syntax errors)
                 script {
@@ -27,7 +27,7 @@ pipeline {
             }
         }
 
-        stage('SAST Stage: Bandit --> Static Security Checks') {
+        stage('SAST Stage') {
             steps {
                 // Run Bandit as SAST Stage to check vulnerabilities Staticly
                 script {
@@ -38,9 +38,9 @@ pipeline {
             }
         }  
 
-        stage('App Feature Testing: UnitTesting') {
+        stage('UnitTesting') {
             steps {
-                // Unit Testing For Django APP
+                // App Feature Testing: Unit Testing For Django APP
                 script {
                     dir('App') {
                         unitTestDjango()
@@ -48,22 +48,13 @@ pipeline {
                 }
             }
         }
-        stage('Docker Image Build') {
-            steps {
-                // Build Docker Image Stage
-                script {
-                    dir('Docker') {
-                        buildDockerImage('macarious25siv/books:V4')
-                    }
-                }
-            }
-        }
 
-        stage('Docker Image Scanning Stage: Snyk') {
+        stage('Build Image & Scanning') {
             steps {
                 script {
                     // Snyk Ligon &&  Test the Docker image with Snyk
                     dir('Docker') {
+                        buildDockerImage('macarious25siv/books:V4')
                         snykLogin('Snyk_Token_ID')
                         snykTestDockerImage(imageName:'macarious25siv/books:V4')
                     }       
@@ -71,7 +62,7 @@ pipeline {
             }
         }
 
-        stage('Docker Hub Login & Push Image ') {
+        stage('Push Image ') {
             steps {
                 script {
                     // Login to Docker Hub using stored credentials, Then Push Image
