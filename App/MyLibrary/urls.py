@@ -22,9 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('Library/',include('Library_0.urls')),
     path('',include('Custome_auth.urls')),
-    
-    path('auth/',include('djoser.urls')),
-    path('auth/',include('djoser.urls.authtoken')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
 ]

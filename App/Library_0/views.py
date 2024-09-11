@@ -1,16 +1,14 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from .models import *
 from .serializer import *
-from rest_framework.status import *
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView
 from django.contrib import messages
 from django.views.generic import UpdateView
 from django.shortcuts import redirect
-from django.views.generic.edit import DeleteView
 
 @login_required()
 def Main_page(request):
@@ -26,6 +24,7 @@ class BookCreateView(LoginRequiredMixin,CreateView):
     model = Book
     fields = ['title', 'is_borrowed', 'category', 'publication_date', 'author']
     template_name = 'create_Book.html'
+    permission_classes = [IsAuthenticated]
 
     def form_valid(self, form):
         form.instance.user = self.request.user
