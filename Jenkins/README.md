@@ -21,3 +21,15 @@ To use the shared library in your Jenkins pipeline, add the following configurat
 // Pipeline Code
 ```
 
+## Credential Management
+- **Credentials Storage**: Use Jenkins’ credentials management to securely store sensitive information like API keys and passwords.
+- **Environment Variables**: Access credentials via environment variables configured in Jenkins.
+
+## Security Authorization
+- **Mixed Security Authorization**: Segment access permissions based on roles and responsibilities.
+- **Least Privilege Principle**: Ensure users and services have only the permissions needed for their tasks.
+
+## How to Run the Pipelines
+1. Configure Jenkins Shared Library under **Manage Jenkins** -> **Configure System** -> **Global Pipeline Libraries**.
+2. Update your `Jenkinsfile` to use the shared library.
+3. Trigger pipelines through Jenkins UI or set automated SCM-based triggers.
