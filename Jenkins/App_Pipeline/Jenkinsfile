@@ -65,7 +65,7 @@ pipeline {
                     // Snyk Ligon &&  Test the Docker image with Snyk
                     dir('Docker') {
                         snykLogin('Snyk_Token_ID')
-                        snykTestDockerImage('macarious25siv/books:V4')
+                        snykTestDockerImage(imageName:'macarious25siv/books:V4')
                     }       
                 }
             }
