@@ -1,3 +1,4 @@
+@Library('Jenkins-Shared-Library') _
 pipeline {
     agent any
 
@@ -146,22 +147,12 @@ pipeline {
             }
         }
 
-        stage('Docker Hub Login to ') {
+        stage('Docker Hub Login & Push Image ') {
             steps {
                 script {
                     // Login to Docker Hub using stored credentials
-                    echo "Logging in to Docker Hub..."
-                    sh 'echo $DOCKER_CREDS_PSW | docker login -u $DOCKER_CREDS_USR --password-stdin'
-                }
-            }
-        }
-
-        stage('Docker Image Push ') {
-            steps {
-                script {
-                    // Push the image to Docker Hub
-                    echo "Pushing Docker image to Docker Hub..."
-                    sh 'docker push macarious25siv/books:V4'
+                    dockerHubLogin('Docker_Creds')
+                    pushDockerImage('macarious25siv/books:V4')
                 }
             }
         }
