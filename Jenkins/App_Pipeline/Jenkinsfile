@@ -90,16 +90,16 @@ pipeline {
             }
         }
 
-        stage('Deployment '){
-            steps{
-                // Deploy your Application using K8s Files
-                script{
-                    dir('K8s'){
-                        deploymentStage()
-                    }
-                }
-            }
-        }
+        // stage('Deployment '){
+        //     steps{
+        //         // Deploy your Application using K8s Files
+        //         script{
+        //             dir('K8s'){
+        //                 deploymentStage()
+        //             }
+        //         }
+        //     }
+        // }
     }
     
     
