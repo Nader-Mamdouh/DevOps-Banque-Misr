@@ -63,6 +63,16 @@ To use the shared library in your Jenkins pipeline, add the following configurat
 
 ## Setup WebHook
 
+### Configure WebHook in GitHub:
+1. Go to your GitHub repository's **Settings** -> **Webhooks** -> **Add Webhook**.
+2. Set the "Payload URL" to `http://your-jenkins-server/github-webhook/`.
+3. Set content type to `application/json`.
+4. Choose **Just the push event** and click **Add Webhook**.
+
+### Enable WebHook in Jenkins:
+1. In your Jenkins job, under **Build Triggers**, select **GitHub hook trigger for GITScm polling**.
+2. Ensure Jenkins is configured with the GitHub plugin to receive webhooks.
+
 
 ## How to Run the Pipelines
 1. Configure Jenkins Shared Library under **Manage Jenkins** -> **Configure System** -> **Global Pipeline Libraries**.
