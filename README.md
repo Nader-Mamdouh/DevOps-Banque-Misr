@@ -27,21 +27,18 @@ python3 manage.py test
 
 To build the Docker image using either of the Dockerfiles, run the following commands:
 
-### Using `Dockerfile`
 
+### Using `Dockerfile (multi-stage)`
 ```bash
-docker build -t my-python-app -f Dockerfile .
-```
-### Using `Dockerfile_copy(multi-stage)`
-```bash
-docker build -t my-python-app -f Dockerfile_copy .
+docker build -t image_name:tag -f Dockerfile .
 ```
 ### Run the Container
 To run the container and expose the application on port 8000, use the following command:
 ```bash
-docker run -p 8000:8000 my-python-app
+docker run -p 8000:8000 image_name:tag
 ```
-This will make the application accessible at http://localhost:8000.
+This will make the application accessible at localhost Port --> 8000.
+
 # Kubernetes Deployment Guide
 ## Overview
 Instructions for deploying an application using Kubernetes with Persistent Volume, Persistent Volume Claim, Deployment, Service, and Ingress.
