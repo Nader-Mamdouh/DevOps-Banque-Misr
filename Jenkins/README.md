@@ -2,44 +2,6 @@
 
 This repository contains Jenkins pipelines for different parts of the application and infrastructure management process. The pipelines utilize a shared library from the following repository: [Jenkins Shared Library](https://github.com/Macarious-GK/Jenkins-Shared-Library.git).
 
-## Folder Structure
-
-The Jenkins folder consists of the following pipelines:
-
-1. **App_Pipeline**: Pipeline responsible for building, testing, and deploying the application.
-- Checkout SCM Stage
-- Linter Stage
-- SAST Stage
-- App Unit Testing Stage
-- Build Image & Scanning
-- Login & Push Image
-- Deployment Stage
-- Post Actions & cleanup Stage
-
-2. **Remove_Deployment**: Pipeline responsible for tearing down or removing the deployment from the environment.
-- Checkout SCM Stag
-- Remove Deployment Stage
-- Post Actions & cleanup Stage
-
-3. **Infra_Pipeline**: It is responsible for both **applying** and **destroying** infrastructure resources by using **Build with Parameters** action: (apply or destroy)
-- Checkout SCM Stage
-- Initialize Terraform Stage
-- Terraform Validate Stage
-- Terraform Plan Stage
-- Terraform Apply/Destroy Stage
-- Post Actions & cleanup Stage
-
-
-## Jenkins Shared Library
-
-The pipelines in this repository make use of a shared library to promote reusable and modular pipeline steps. The shared library is hosted in the following GitHub repository: [Jenkins Shared Library](https://github.com/Macarious-GK/Jenkins-Shared-Library.git).
-
-To use the shared library in your Jenkins pipeline, add the following configuration to your `Jenkinsfile`:
-
-```groovy
-@Library('Jenkins-Shared-Library') _
-// Pipeline Code
-```
 ## SSDLC Integration
 - The Jenkins pipelines incorporate SSDLC principles by applying the "shift-left" approach, which integrates security testing early in the development lifecycle. This proactive method helps address vulnerabilities before they reach production. 
 - Key security measures include code linting, static application security testing, and Docker image scanning
@@ -59,8 +21,47 @@ To use the shared library in your Jenkins pipeline, add the following configurat
 
 #### Install Plugins
 1. Go to **Manage Jenkins** -> **Manage Plugins**.
-2. Under the **Available** tab, search for **AWS Credentials** and **GitHub**.
+2. Under the **Available** tab, search for **AWS Credentials**, **AWS Steps**, and **GitHub**.
 3. Select the plugins and click **Install without Restart**.
+
+## Jenkins Shared Library
+
+The pipelines in this repository make use of a shared library to promote reusable and modular pipeline steps. The shared library is hosted in the following GitHub repository: [Jenkins Shared Library](https://github.com/Macarious-GK/Jenkins-Shared-Library.git).
+
+To use the shared library in your Jenkins pipeline, add the following configuration to your `Jenkinsfile`:
+
+```groovy
+@Library('Jenkins-Shared-Library') _
+// Pipeline Code
+```
+
+
+## Jenkins Pipelines
+
+**App_Pipeline**: Pipeline responsible for building, testing, and deploying the application.
+- Checkout SCM Stage
+- Linter Stage
+- SAST Stage
+- App Unit Testing Stage
+- Build Image & Scanning
+- Login & Push Image
+- Deployment Stage
+- Post Actions & cleanup Stage
+
+**Remove_Deployment**: Pipeline responsible for tearing down or removing the deployment from the environment.
+- Checkout SCM Stag
+- Remove Deployment Stage
+- Post Actions & cleanup Stage
+
+**Infra_Pipeline**: It is responsible for both **applying** and **destroying** infrastructure resources by using **Build with Parameters** action: (apply or destroy)
+- Checkout SCM Stage
+- Initialize Terraform Stage
+- Terraform Validate Stage
+- Terraform Plan Stage
+- Terraform Apply/Destroy Stage
+- Post Actions & cleanup Stage
+
+## Setup WebHook
 
 
 ## How to Run the Pipelines

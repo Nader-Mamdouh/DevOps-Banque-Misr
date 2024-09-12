@@ -7,6 +7,15 @@ pipeline {
     }
 
     stages {
+        stage('Checkout SCM stage') {
+            steps {
+                // Checkout SCM stage
+                script {
+                    checkout scm   
+                }
+            }
+        }
+
         stage('Linter Stage') {
             steps {
                 // Run Flake8, save the output to a report, and check for fatal errors (e.g., syntax errors)
@@ -38,7 +47,7 @@ pipeline {
                     }   
                 }
             }
-        // }
+        }
 
         stage('Build Image & Scanning') {
             steps {
