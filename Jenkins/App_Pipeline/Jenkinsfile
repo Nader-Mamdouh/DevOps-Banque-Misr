@@ -43,7 +43,7 @@ pipeline {
         stage('Build Image & Scanning') {
             steps {
                 script {
-                    // Snyk Ligon &&  Test the Docker image with Snyk
+                    // Snyk Ligon &&  Test the Docker image with Snyk and Trivy
                     dir('Docker') {
                         buildDockerImage('macarious25siv/books:latest')
                         trivyScanning(imageName:'macarious25siv/books:latest')
