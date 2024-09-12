@@ -66,16 +66,16 @@ pipeline {
         }
 
 
-        // stage('Deployment Stage'){
-        //     steps{
-        //         // Check if Cluster is Exist or not by Name
-        //         script{
-        //             dir('K8s'){
-        //                 checkdeployEksCluster('aws-jenkins-credentials', 'Macarious-eks-cluster','us-east-2')
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Deployment Stage'){
+            steps{
+                // Check if Cluster is Exist or not by Name and If there is already a Deployment or not then Deploy
+                script{
+                    dir('K8s'){
+                        checkdeployEksCluster('aws-jenkins-credentials', 'Macarious-eks-cluster','us-east-2')
+                    }
+                }
+            }
+        }
 
     }
     
