@@ -1,27 +1,25 @@
-# DevOps Project - Django Application with Docker, Kubernetes, Terraform, AWS, and Jenkins CI/CD
+# **DevOps Project - Django Application with Docker, Kubernetes, Terraform, AWS, and Jenkins CI/CD**
 
-## Overview
-This repository contains a comprehensive DevOps project that integrates several tools and technologies to deploy a Django application using best practices. The project covers:
+## **Overview**
 
-- **Django** for the application.
-- **Docker** for containerization (single and multi-stage builds).
-- **Kubernetes** (K8s) for container orchestration.
-- **Terraform** for infrastructure provisioning on AWS.
-- **Jenkins** for Continuous Integration and Continuous Deployment (CI/CD) pipelines covering the entire Secure Software Development Life Cycle (SSDLC).
+This repository showcases a comprehensive DevOps project designed to deploy a Django application using a range of modern tools and practices. The project integrates several technologies to achieve a robust, scalable, and automated deployment pipeline.
 
-## Table of Contents
-1. [Project Structure](#project-structure)
-2. [Prerequisites](#prerequisites)
-3. [Setup and Installation](#setup-and-installation)
-4. [Django Application](#django-application)
-5. [Docker Configuration](#docker-configuration)
-   - Single-Stage Dockerfile
-   - Multi-Stage Dockerfile
-6. [Kubernetes Deployment](#kubernetes-deployment)
-7. [Terraform for AWS Infrastructure](#terraform-for-aws-infrastructure)
-8. [Jenkins CI/CD Pipelines](#jenkins-cicd-pipelines)
-9. [Contributing](#contributing)
-10. [License](#license)
+### **Project Components**
 
-## Project Structure
+- **Django**: A high-level Python web framework used for building the application. Django provides a clean, pragmatic design and a robust set of features for web development.
 
+- **Docker**: Used for containerizing the Django application. The Docker setup includes single and multi-stage builds to ensure efficient and secure image creation.
+
+- **Kubernetes (K8s)**: Manages the deployment, scaling, and operation of the containerized application. Kubernetes provides automated container orchestration, ensuring the application is resilient and scalable.
+
+- **Terraform**: Automates the provisioning of cloud infrastructure on AWS. Terraform scripts are used to define and manage AWS resources such as Virtual Private Clouds (VPCs), subnets, and Elastic Kubernetes Service (EKS) clusters.
+
+- **Jenkins**: Implements Continuous Integration and Continuous Deployment (CI/CD) pipelines to automate the build, test, and deployment processes. Jenkins pipelines integrate with Docker, Kubernetes, and Terraform to streamline development and deployment workflows.
+
+
+
+**Clone the Repository**
+
+   ```bash
+   git clone https://github.com/Macarious-GK/DevOps.git
+```
