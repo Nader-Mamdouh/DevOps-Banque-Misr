@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
       - name: copy-db
-        image: macarious25siv/books:V6
+        image: macarious25siv/books:latest
         command: ['sh', '-c', 'cp -r /app/db/* /mnt/data/bookmanage/']
         volumeMounts:
         - name: bookmanage-storage

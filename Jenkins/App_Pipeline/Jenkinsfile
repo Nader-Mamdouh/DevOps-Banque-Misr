@@ -45,25 +45,25 @@ pipeline {
                 script {
                     // Snyk Ligon &&  Test the Docker image with Snyk
                     dir('Docker') {
-                        buildDockerImage('macarious25siv/books:V4')
-                        trivyScanning(imageName:'macarious25siv/books:V4')
+                        buildDockerImage('macarious25siv/books:latest')
+                        trivyScanning(imageName:'macarious25siv/books:latest')
                         snykLogin('Snyk_Token_ID')
-                        snykTestDockerImage(imageName:'macarious25siv/books:V4')
+                        snykTestDockerImage(imageName:'macarious25siv/books:latest')
 
                     }       
                 }
             }
         }
 
-        // stage('Push Image ') {
-        //     steps {
-        //         script {
-        //             // Login to Docker Hub using stored credentials, Then Push Image
-        //             dockerHubLogin('Docker_Creds')
-        //             pushDockerImage('macarious25siv/books:V4')
-        //         }
-        //     }
-        // }
+        stage('Push Image ') {
+            steps {
+                script {
+                    // Login to Docker Hub using stored credentials, Then Push Image
+                    dockerHubLogin('Docker_Creds')
+                    pushDockerImage('macarious25siv/books:V4')
+                }
+            }
+        }
 
         // stage('Deployment Stage'){
         //     steps{
