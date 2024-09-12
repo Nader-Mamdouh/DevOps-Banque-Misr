@@ -4,8 +4,17 @@ pipeline {
     agent any
 
     stages {
+        stage('Checkout SCM stage') {
+            steps {
+                // Checkout SCM stage
+                script {
+                    checkout scm   
+                }
+            }
+        }
         stage('remove EKS Cluster deployment'){
             steps{
+                // Stage For Removing application Deployment on EKS Cluster
                 dir('K8s'){
                     script{
                         removeDeploymentStage('aws-jenkins-credentials', 'Macarious-eks-cluster','us-east-2')

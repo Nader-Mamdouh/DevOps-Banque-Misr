@@ -1,11 +1,7 @@
 @Library('Jenkins-Shared-Library') _
 pipeline {
     agent any
-
-    environment {
-        GIT_CRED = credentials('GitHub_Private_Repo')  // Use the GitHub credentials ID here
-    }
-
+    
     stages {
         stage('Checkout SCM stage') {
             steps {
