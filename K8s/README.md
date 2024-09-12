@@ -8,7 +8,11 @@ To logically group all related Kubernetes resources, we first create a namespace
 
 ### Steps:
 1. Define a namespace in your Kubernetes configuration.
-2. Apply the configuration to create the namespace.
+2. Apply the configuration to create the namespace:
+
+    ```bash
+    kubectl apply -f namespace.yaml
+    ```
 
 ## 2. Persistent Storage Setup
 
@@ -21,7 +25,12 @@ For managing application storage, we set up a Persistent Volume (PV) and a Persi
 ### Steps:
 1. Define a Persistent Volume in your configuration.
 2. Define a Persistent Volume Claim that requests storage from the PV.
-3. Apply the configurations to create the PV and PVC.
+3. Apply the configurations to create the PV and PVC:
+
+    ```bash
+    kubectl apply -f pv.yaml
+    kubectl apply -f pvc.yaml
+    ```
 
 ## 3. Data Initialization with a Kubernetes Job
 
@@ -29,7 +38,11 @@ We use a Kubernetes Job to copy initial data into the persistent storage. This j
 
 ### Steps:
 1. Define a Job in your Kubernetes configuration that copies the data.
-2. Apply the configuration to run the job and initialize the data.
+2. Apply the configuration to run the job and initialize the data:
+
+    ```bash
+    kubectl apply -f job.yaml
+    ```
 
 ## 4. Application Deployment
 
@@ -37,7 +50,11 @@ Deploy the application using a Kubernetes Deployment. The Deployment manages the
 
 ### Steps:
 1. Define a Deployment in your configuration, specifying the number of replicas and container details.
-2. Apply the configuration to deploy the application.
+2. Apply the configuration to deploy the application:
+
+    ```bash
+    kubectl apply -f deployment.yaml
+    ```
 
 ## 5. Exposing the Application
 
@@ -45,7 +62,11 @@ To make the application accessible, create a Kubernetes Service of type LoadBala
 
 ### Steps:
 1. Define a Service of type LoadBalancer in your configuration.
-2. Apply the configuration to create the Service.
+2. Apply the configuration to create the Service:
+
+    ```bash
+    kubectl apply -f service.yaml
+    ```
 
 ## 6. Routing Traffic with Ingress
 
@@ -53,102 +74,23 @@ Configure an Ingress resource to manage external access to the application. The 
 
 ### Steps:
 1. Define an Ingress resource in your configuration.
-2. Apply the configuration to set up the Ingress rules.
+2. Apply the configuration to set up the Ingress:
 
-## Summary
+    ```bash
+    kubectl apply -f ingress.yaml
+    ```
 
-This guide provides a comprehensive approach to deploying an application on AWS EKS using Kubernetes. It includes setting up namespaces, persistent storage, initializing data, deploying the application, and exposing it through a LoadBalancer and Ingress. Follow these steps to ensure your application is well-organized, scalable, and accessible.
+## 7. Verify Deployment
 
-For further details or troubleshooting, refer to the official [Kubernetes documentation](https://kubernetes.io/docs/home/) or the [AWS EKS documentation](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html).
+After applying the configurations, you can check the status of your resources to ensure everything is set up correctly:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Kubernetes Deployment Guide
-## Overview
-Instructions for deploying an application using Kubernetes with Persistent Volume, Persistent Volume Claim, Deployment, Service, and Ingress.
-
-## Prerequisites
-Before proceeding, ensure that:
--   You have a Kubernetes cluster running (e.g., Minikube, EKS, GKE, etc.).
--   awscli, ekscli and kubectl command-line tool is installed and configured to communicate with your cluster.
-
-## Automating the process
--  Make the script executable by running
--  Execute the script by running:
 ```bash
-chmod +x K8s_deploy_and_check.sh
-./K8s_deploy_and_check.sh
-```
-## Or Manually doing the process
-### If using Minikube start with:
-```bash
-minikube start && minikube addons enable ingress
-```
+# Optional: Check other resources if needed
+echo "Checking services..."
+kubectl get services -n my-namespace
 
-### After Creating or Connecting to the Cluster
-```console
+echo "Checking deployments..."
+kubectl get deployments -n my-namespace
 
-kubectl apply -f namespace.yaml
-
-kubectl apply -f pv.yaml
-
-kubectl apply -f pvc.yaml
-
-kubectl apply -f job.yaml
-
-kubectl apply -f service.yaml
-
-kubectl apply -f ingress.yaml
-
-kubectl apply -f deployment.yaml
-
-```
-
-# Verification
-## Check Pods:
-
-kubectl get pods -n your-namespace
-
-kubectl get events -n your-namespace
-
-
-
-
-### under Testing
-kubectl get secrets
-kubectl describe secret terminal-creds
-kubectl get secret terminal-creds -o jsonpath='{.data.username}'| base64 --decode
-kubectl get secret terminal-creds -o jsonpath='{.data.password}'| base64 --decode
-kubectl create sa terminal-user
-kubectl create sa terminal-admin
-
-kubectl auth can-i get secret/terminal-creds --as=system:serviceaccount:default:terminal-user
-kubectl auth can-i get secret/terminal-creds --as=system:serviceaccount:default:terminal-admin
+echo "Checking ingress..."
+kubectl get ingress -n my-namespace
