@@ -16,6 +16,9 @@ This repository showcases a comprehensive DevOps project designed to deploy a Dj
 
 - **Jenkins**: Implements Continuous Integration and Continuous Deployment (CI/CD) pipelines to automate the build, test, and deployment processes. Jenkins pipelines integrate with Docker, Kubernetes, and Terraform to streamline development and deployment workflows.
 
+- **Prometheus**: Deployed on the EKS cluster to collect and store metrics from the application and the underlying infrastructure. Prometheus provides powerful querying capabilities and is used for monitoring system performance and health.
+
+- **Grafana**: Deployed alongside Prometheus on the EKS cluster to visualize metrics collected by Prometheus. Grafana is used to create dashboards and visualizations to monitor application performance and gain insights from the collected data.
 
 
 **Clone the Repository**
