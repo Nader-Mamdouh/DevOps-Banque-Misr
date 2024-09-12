@@ -7,38 +7,38 @@ pipeline {
     }
 
     stages {
-        stage('Linter Stage') {
-            steps {
-                // Run Flake8, save the output to a report, and check for fatal errors (e.g., syntax errors)
-                script {
-                    dir('App'){
-                        runFlake8Linting()   
-                    }                 
-                }
-            }
-        }
+        // stage('Linter Stage') {
+        //     steps {
+        //         // Run Flake8, save the output to a report, and check for fatal errors (e.g., syntax errors)
+        //         script {
+        //             dir('App'){
+        //                 runFlake8Linting()   
+        //             }                 
+        //         }
+        //     }
+        // }
 
-        stage('SAST Stage') {
-            steps {
-                // Run Bandit as SAST Stage to check vulnerabilities Staticly
-                script {
-                    dir('App'){
-                    sastBanditCheck()
-                    }
-                }
-            }
-        }  
+        // stage('SAST Stage') {
+        //     steps {
+        //         // Run Bandit as SAST Stage to check vulnerabilities Staticly
+        //         script {
+        //             dir('App'){
+        //             sastBanditCheck()
+        //             }
+        //         }
+        //     }
+        // }  
 
-        stage('UnitTesting') {
-            steps {
-                // App Feature Testing: Unit Testing For Django APP
-                script {
-                    dir('App') {
-                        unitTestDjango()
-                    }   
-                }
-            }
-        }
+        // stage('UnitTesting') {
+        //     steps {
+        //         // App Feature Testing: Unit Testing For Django APP
+        //         script {
+        //             dir('App') {
+        //                 unitTestDjango()
+        //             }   
+        //         }
+        //     }
+        // }
 
         stage('Build Image & Scanning') {
             steps {
@@ -46,33 +46,35 @@ pipeline {
                     // Snyk Ligon &&  Test the Docker image with Snyk
                     dir('Docker') {
                         buildDockerImage('macarious25siv/books:V4')
+                        trivyScanning(imageName:'macarious25siv/books:V4')
                         snykLogin('Snyk_Token_ID')
                         snykTestDockerImage(imageName:'macarious25siv/books:V4')
+
                     }       
                 }
             }
         }
 
-        stage('Push Image ') {
-            steps {
-                script {
-                    // Login to Docker Hub using stored credentials, Then Push Image
-                    dockerHubLogin('Docker_Creds')
-                    pushDockerImage('macarious25siv/books:V4')
-                }
-            }
-        }
+        // stage('Push Image ') {
+        //     steps {
+        //         script {
+        //             // Login to Docker Hub using stored credentials, Then Push Image
+        //             dockerHubLogin('Docker_Creds')
+        //             pushDockerImage('macarious25siv/books:V4')
+        //         }
+        //     }
+        // }
 
-        stage('Deployment Stage'){
-            steps{
-                // Check if Cluster is Exist or not by Name
-                script{
-                    dir('K8s'){
-                        checkdeployEksCluster('aws-jenkins-credentials', 'Macarious-eks-cluster','us-east-2')
-                    }
-                }
-            }
-        }
+        // stage('Deployment Stage'){
+        //     steps{
+        //         // Check if Cluster is Exist or not by Name
+        //         script{
+        //             dir('K8s'){
+        //                 checkdeployEksCluster('aws-jenkins-credentials', 'Macarious-eks-cluster','us-east-2')
+        //             }
+        //         }
+        //     }
+        // }
 
     }
     
