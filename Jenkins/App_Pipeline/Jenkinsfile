@@ -60,11 +60,11 @@ pipeline {
                 script {
                     // Login to Docker Hub using stored credentials, Then Push Image
                     dockerHubLogin('Docker_Creds')
-                    pushDockerImage('macarious25siv/books:V4')
+                    pushDockerImage('macarious25siv/books:latest')
                 }
             }
         }
-        
+
 
         // stage('Deployment Stage'){
         //     steps{
