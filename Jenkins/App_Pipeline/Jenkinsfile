@@ -51,7 +51,7 @@ pipeline {
                     // Snyk Ligon &&  Test the Docker image with Snyk or Trivy
                     dir('App') {
                         buildDockerImage('macarious25siv/books:latest')
-                        // trivyScanning(imageName:'macarious25siv/books:latest')
+                        trivyScanning(imageName:'macarious25siv/books:latest')
                         snykLogin('Snyk_Token_ID')
                         snykTestDockerImage(imageName:'macarious25siv/books:latest')
 
