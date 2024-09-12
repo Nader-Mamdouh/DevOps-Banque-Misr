@@ -7,8 +7,28 @@ This repository contains Jenkins pipelines for different parts of the applicatio
 The Jenkins folder consists of the following pipelines:
 
 1. **App_Pipeline**: Pipeline responsible for building, testing, and deploying the application.
-2. **RRemove_Deployment**: Pipeline responsible for tearing down or removing the deployment from the environment.
+- Checkout SCM Stage
+- Linter Stage
+- SAST Stage
+- App Unit Testing Stage
+- Build Image & Scanning
+- Login & Push Image
+- Deployment Stage
+- Post Actions & cleanup Stage
+
+2. **Remove_Deployment**: Pipeline responsible for tearing down or removing the deployment from the environment.
+- Checkout SCM Stag
+- Remove Deployment Stage
+- Post Actions & cleanup Stage
+
 3. **Infra_Pipeline**: It is responsible for both **applying** and **destroying** infrastructure resources by using **Build with Parameters** action: (apply or destroy)
+- Checkout SCM Stage
+- Initialize Terraform Stage
+- Terraform Validate Stage
+- Terraform Plan Stage
+- Terraform Apply/Destroy Stage
+- Post Actions & cleanup Stage
+
 
 ## Jenkins Shared Library
 
@@ -20,7 +40,9 @@ To use the shared library in your Jenkins pipeline, add the following configurat
 @Library('Jenkins-Shared-Library') _
 // Pipeline Code
 ```
-
+## SSDLC Integration
+- The Jenkins pipelines incorporate SSDLC principles by applying the "shift-left" approach, which integrates security testing early in the development lifecycle. This proactive method helps address vulnerabilities before they reach production. 
+- Key security measures include code linting, static application security testing, and Docker image scanning
 ## Credential Management
 - **Credentials Storage**: Use Jenkins’ credentials management to securely store sensitive information like API keys and passwords.
 - **Environment Variables**: Access credentials via environment variables configured in Jenkins.

@@ -3,11 +3,11 @@
 ## Build the Docker Image
 
 To build the Docker image using either of the Dockerfiles, run the following commands:
-
+### Using `Dockerfile_copy (Single-Stage)`
 
 ### Using `Dockerfile (multi-stage)`
 ```bash
-docker build -t image_name:tag -f Dockerfile .
+docker build -t image_name:tag -f /path/to/Dockerfile/in/ApplicationFolder
 ```
 ### Run the Container
 To run the container and expose the application on port 8000, use the following command:

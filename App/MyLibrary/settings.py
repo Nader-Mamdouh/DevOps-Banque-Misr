@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-691py28fdo&!00j)s=mue=7%jv*_*0$3v+_l^i=4x1j7f9!yq$'
 
-import os
+# import os
 # import hvac
 
 # # Initialize Vault client

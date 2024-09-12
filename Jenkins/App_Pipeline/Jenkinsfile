@@ -7,44 +7,44 @@ pipeline {
     }
 
     stages {
-        // stage('Linter Stage') {
-        //     steps {
-        //         // Run Flake8, save the output to a report, and check for fatal errors (e.g., syntax errors)
-        //         script {
-        //             dir('App'){
-        //                 runFlake8Linting()   
-        //             }                 
-        //         }
-        //     }
-        // }
+        stage('Linter Stage') {
+            steps {
+                // Run Flake8, save the output to a report, and check for fatal errors (e.g., syntax errors)
+                script {
+                    dir('App'){
+                        runFlake8Linting()   
+                    }                 
+                }
+            }
+        }
 
-        // stage('SAST Stage') {
-        //     steps {
-        //         // Run Bandit as SAST Stage to check vulnerabilities Staticly
-        //         script {
-        //             dir('App'){
-        //             sastBanditCheck()
-        //             }
-        //         }
-        //     }
-        // }  
+        stage('SAST Stage') {
+            steps {
+                // Run Bandit as SAST Stage to check vulnerabilities Staticly
+                script {
+                    dir('App'){
+                    sastBanditCheck()
+                    }
+                }
+            }
+        }  
 
-        // stage('UnitTesting') {
-        //     steps {
-        //         // App Feature Testing: Unit Testing For Django APP
-        //         script {
-        //             dir('App') {
-        //                 unitTestDjango()
-        //             }   
-        //         }
-        //     }
+        stage('UnitTesting') {
+            steps {
+                // App Feature Testing: Unit Testing For Django APP
+                script {
+                    dir('App') {
+                        unitTestDjango()
+                    }   
+                }
+            }
         // }
 
         stage('Build Image & Scanning') {
             steps {
                 script {
-                    // Snyk Ligon &&  Test the Docker image with Snyk and Trivy
-                    dir('Docker') {
+                    // Snyk Ligon &&  Test the Docker image with Snyk or Trivy
+                    dir('App') {
                         buildDockerImage('macarious25siv/books:latest')
                         trivyScanning(imageName:'macarious25siv/books:latest')
                         snykLogin('Snyk_Token_ID')
