@@ -20,7 +20,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-691py28fdo&!00j)s=mue=7%jv*_*0$3v+_l^i=4x1j7f9!yq$'
+
+import os
+import hvac
+
+# Initialize Vault client
+client = hvac.Client(url=os.getenv('VAULT_ADDR'))
+
+# Read secret from Vault
+vault_secret_path = 'secret/django'
+secret_version = 'latest'  # Use specific version if needed
+secret_response = client.secrets.kv.read_secret_version(path=vault_secret_path, version=secret_version)
+SECRET_KEY = secret_response['data']['data']['SECRET_KEY']
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
