@@ -16,6 +16,18 @@ pipeline {
             }
         }
 
+        stage('IaS Scanning'){
+            steps{
+                // Scanning IAS using Snyk
+                dir('Terraform'){
+                    script{
+                        snykLogin('Snyk_Token_ID')
+                        snykTestIas()
+                    }
+                }
+            }
+        }
+
         stage('Initialize Terraform') {
             steps {
                 dir('Terraform'){
