@@ -55,6 +55,7 @@ To use the shared library in your Jenkins pipeline, add the following configurat
 
 **Infra_Pipeline**: It is responsible for both **applying** and **destroying** infrastructure resources by using **Build with Parameters** action: (apply or destroy)
 - Checkout SCM Stage
+- IaS Scanning
 - Initialize Terraform Stage
 - Terraform Validate Stage
 - Terraform Plan Stage
